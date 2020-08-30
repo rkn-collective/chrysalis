@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import Duration from './Duration';
 import khalid_better from './assets/khalid_better.mp3';
 import { makeStyles } from '@material-ui/core/styles';
-import {Button, Grid, Container} from '@material-ui/core';
+import {Button, Grid, Box} from '@material-ui/core';
 import './index.css';
 
 function Player() {
@@ -48,7 +48,49 @@ function Player() {
   const inputEl = useRef(null);
 
   return (
-    <Container>
+    <Box>
+      <table>
+        <tbody>
+          <tr>
+            <th>Volume</th>
+            <td>
+              <input type='range' min={0} max={1} step='any' value={volume} onChange={handleVolumeChange} />
+            </td>
+          </tr>
+          <tr>
+            <th>Loaded</th>
+            <td><progress max={1} value={loaded} /></td>
+          </tr>
+          <tr>
+            <th>duration</th>
+            <td><Duration seconds={duration} /></td>
+          </tr>
+          <tr>
+            <th>elapsed</th>
+            <td><Duration seconds={duration * played} /></td>
+          </tr>
+          <tr>
+            <th>remaining</th>
+            <td><Duration seconds={duration * (1 - played)} /></td>
+          </tr>
+          <tr>
+            <th>
+              <label htmlFor='muted'>Muted</label>
+            </th>
+            <td>
+              <input id='muted' type='checkbox' checked={muted} onChange={handleToggleMuted} />
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <label htmlFor='loop'>Loop</label>
+            </th>
+            <td>
+              <input id='loop' type='checkbox' checked={loop} onChange={handleToggleLoop} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <Grid
         container
         direction="row"
@@ -99,51 +141,13 @@ function Player() {
               </td>
             </tr>
             <tr>
-              <th>Volume</th>
-              <td>
-                <input type='range' min={0} max={1} step='any' value={volume} onChange={handleVolumeChange} />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <label htmlFor='muted'>Muted</label>
-              </th>
-              <td>
-                <input id='muted' type='checkbox' checked={muted} onChange={handleToggleMuted} />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <label htmlFor='loop'>Loop</label>
-              </th>
-              <td>
-                <input id='loop' type='checkbox' checked={loop} onChange={handleToggleLoop} />
-              </td>
-            </tr>
-            <tr>
               <th>Played</th>
               <td><progress max={1} value={played} /></td>
-            </tr>
-            <tr>
-              <th>Loaded</th>
-              <td><progress max={1} value={loaded} /></td>
-            </tr>
-            <tr>
-              <th>duration</th>
-              <td><Duration seconds={duration} /></td>
-            </tr>
-            <tr>
-              <th>elapsed</th>
-              <td><Duration seconds={duration * played} /></td>
-            </tr>
-            <tr>
-              <th>remaining</th>
-              <td><Duration seconds={duration * (1 - played)} /></td>
             </tr>
           </tbody>
         </table>
       </Grid>
-    </Container>
+    </Box>
   );
 }
 
