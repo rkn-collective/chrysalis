@@ -1,16 +1,15 @@
 import React, { useState, useRef, Fragment } from 'react';
 import ReactPlayer from 'react-player';
-import Duration from './Duration';
-import khalid_better from './assets/khalid_better.mp3';
-import ChrysalisSlider from './components/ChrysalisSlider';
+import khalid_better from '../assets/khalid_better.mp3';
+import ChrysalisSlider from './ChrysalisSlider';
 import { MuuriComponent } from "muuri-react";
 import { Card, Paper, Button, FormControlLabel, LinearProgress, Typography, Slider, Checkbox, Grid} from '@material-ui/core';
-import './index.css';
-import './style.css';
+import '../index.css';
+import '../style.css';
 
-import {generateItems} from './utility';
-import {StyledThumbComponent} from './components/StyledThumbComponent';
-import {AudioBlock} from './components/AudioBlock';
+import {generateItems, Duration} from '../utility';
+import {StyledThumbComponent} from './StyledThumbComponent';
+import {AudioBlock} from './AudioBlock';
 
 export default function Player() {
 

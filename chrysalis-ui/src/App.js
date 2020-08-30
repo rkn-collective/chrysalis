@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Player from './Player';
+import Player from './components/Player';
 import { Grid } from '@material-ui/core';
 import './App.css';
 
