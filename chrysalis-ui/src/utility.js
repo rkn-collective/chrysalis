@@ -1,6 +1,6 @@
 import React from "react";
 
-export function generateItems() {
+export function generateBlocks() {
     const items = [];
     for (let index = 0; index < 6; index++) {
 

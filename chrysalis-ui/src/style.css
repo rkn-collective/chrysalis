@@ -10,22 +10,16 @@ html.dragging body {
     user-select: none;
 }
 
-.grid {
-    max-width: 1000px;
-}
-
 .item {
     user-select: none;
     display: block;
     position: absolute;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    margin: 5px;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
     z-index: 1;
     background: #fff;
     color: #000;
-    border-radius: 6px;
     will-change: transform;
     cursor: pointer;
     transition: box-shadow 0.2s;
@@ -47,23 +41,13 @@ html.dragging body {
     z-index: 0;
 }
 
-.item.h2 {
-    height: 210px;
-    line-height: 210px;
-}
-.item.w2 {
-    width: 210px;
-}
-
 .item-content {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
     text-align: center;
     font-size: 24px;
     font-weight: 300;
+    /*width: 100%;*/
+    /*height: 100%;*/
     background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid;
     color: #333;
@@ -76,7 +60,11 @@ html.dragging body {
 }
 
 .shadow {
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.034),
+    0 6px 5px rgba(0, 0, 0, 0.048), 0 12px 10px rgba(0, 0, 0, 0.06),
+    0 22px 17px rgba(0, 0, 0, 0.072), 0 41px 33px rgba(0, 0, 0, 0.086);
+}
+
+.muuri {
+    position: relative;
 }

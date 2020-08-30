@@ -7,7 +7,7 @@ import { Card, Paper, Button, FormControlLabel, LinearProgress, Typography, Slid
 import '../index.css';
 import '../style.css';
 
-import {generateItems, Duration} from '../utility';
+import {generateBlocks, Duration} from '../utility';
 import {StyledThumbComponent} from './StyledThumbComponent';
 import {AudioBlock} from './AudioBlock';
 
@@ -21,6 +21,7 @@ export default function Player() {
   const [volume, setVolume] = useState(0.8);
   const [loop, setLoop] = useState(false);
   const [seeking, setSeeking] = useState(false);
+  const [audioBlockArray, setAudioBlockArray] = useState(generateBlocks());
 
   const handlePlay = () => { setPlaying(true) }
   const handlePause = () => { setPlaying(false) }
@@ -58,10 +59,7 @@ export default function Player() {
   }
 
   const inputEl = useRef(null);
-
-  const items = generateItems();
-
-  const children = items.map(props => <AudioBlock key={props.index} {...props} />);
+  const muuriRef = useRef(null);
 
   return (
     <Fragment>
@@ -122,8 +120,11 @@ export default function Player() {
         />
       </Grid>
       <Grid>
-        <MuuriComponent dragEnabled>
-          {children}
+        <MuuriComponent
+            ref={muuriRef}
+            dragEnabled={true}
+        >
+          {audioBlockArray.map(props => <AudioBlock key={props.index} {...props} />)}
         </MuuriComponent>
       </Grid>
     </Fragment>
