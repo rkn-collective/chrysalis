@@ -1,13 +1,25 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment } from 'react';
 import Player from './Player';
+import { Grid } from '@material-ui/core';
 import './App.css';
 
 function App() {
 
   return (
     <Fragment>
-      <Player/>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        style={{paddingTop: 200}}
+      >
+        <Grid item xs={6}>
+          <Player/>
+        </Grid>
+      </Grid>
     </Fragment>
+    
   );
 }
 

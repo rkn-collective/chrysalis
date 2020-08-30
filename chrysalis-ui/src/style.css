@@ -1,0 +1,82 @@
+html {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #fff;
+}
+html.dragging body {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.grid {
+    max-width: 1000px;
+}
+
+.item {
+    user-select: none;
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    margin: 5px;
+    z-index: 1;
+    background: #fff;
+    color: #000;
+    border-radius: 6px;
+    will-change: transform;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.item.muuri-item-positioning {
+    z-index: 2;
+}
+
+.item.muuri-item-dragging,
+.item.muuri-item-releasing {
+    z-index: 3;
+}
+
+.item.muuri-item-dragging {
+    cursor: move;
+}
+
+.item.muuri-item-hidden {
+    z-index: 0;
+}
+
+.item.h2 {
+    height: 210px;
+    line-height: 210px;
+}
+.item.w2 {
+    width: 210px;
+}
+
+.item-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 300;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid;
+    color: #333;
+    border-radius: 4px;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+.shadow {
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086);
+}

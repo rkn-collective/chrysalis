@@ -1,12 +1,18 @@
-import React, { Fragment, useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import ReactPlayer from 'react-player';
 import Duration from './Duration';
 import khalid_better from './assets/khalid_better.mp3';
-import { makeStyles } from '@material-ui/core/styles';
-import {Button, FormControlLabel, Box, Paper, LinearProgress, Typography, Slider, Checkbox} from '@material-ui/core';
+import ChrysalisSlider from './components/ChrysalisSlider';
+import { MuuriComponent } from "muuri-react";
+import { Card, Paper, Button, FormControlLabel, LinearProgress, Typography, Slider, Checkbox, Grid} from '@material-ui/core';
 import './index.css';
+import './style.css';
 
-function Player() {
+import {generateItems} from './utility';
+import {StyledThumbComponent} from './components/StyledThumbComponent';
+import {AudioBlock} from './components/AudioBlock';
+
+export default function Player() {
 
   const [playing, setPlaying] = useState(false);
   const [played, setPlayed] = useState(0);
@@ -54,27 +60,13 @@ function Player() {
 
   const inputEl = useRef(null);
 
+  const items = generateItems();
+
+  const children = items.map(props => <AudioBlock key={props.index} {...props} />);
+
   return (
-    <Box>
-        <Typography>Volume</Typography>
-        <Slider min={0} max={1} step={0.0001} value={volume} onChange={handleVolumeChange} />
-        <Typography>Loaded</Typography>
-        <LinearProgress value={loaded * 100} style={{height: 20}} variant='determinate' />
-        <Typography>duration</Typography>
-        <Duration seconds={duration} />
-        <Typography>elapsed</Typography>
-        <Duration seconds={duration * played} />
-        <Typography>remaining</Typography>
-        <Duration seconds={duration * (1 - played)} />
-        <FormControlLabel 
-          control={<Checkbox checked={muted} onChange={handleToggleMuted}/>} 
-          label='muted'
-          />
-        <FormControlLabel 
-          control={<Checkbox checked={loop} onChange={handleToggleLoop}/>} 
-          label='loop'
-          />
-        <ReactPlayer
+    <Fragment>
+      <ReactPlayer
           ref={inputEl}
           className='react-player'
           width='100%'
@@ -94,23 +86,47 @@ function Player() {
           onError={e => console.log('onError', e)}
           onProgress={handleProgress}
           onDuration={handleDuration}
+      />
+      <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+      >
+        <Paper style={{padding: 20}}>
+          <Typography>Volume</Typography>
+          <Slider min={0} max={1} step={0.0001} value={volume} onChange={handleVolumeChange} />
+          <Typography>Loaded</Typography>
+          <LinearProgress value={loaded * 100} style={{height: 20}} variant='determinate' />
+          <Typography>duration | {<Duration seconds={duration} />}</Typography>
+          <Typography>elapsed | {<Duration seconds={duration * played} />}</Typography>
+          <Typography>remaining | {<Duration seconds={duration * (1 - played)} />}</Typography>
+          <FormControlLabel
+              control={<Checkbox checked={muted} onChange={handleToggleMuted}/>}
+              label='muted'
+          />
+          <FormControlLabel
+              control={<Checkbox checked={loop} onChange={handleToggleLoop}/>}
+              label='loop'
+          />
+          <Button onClick={handleStop}>Stop</Button>
+          <Button onClick={handlePlayPause}>{playing ? 'Pause' : 'Play'}</Button>
+        </Paper>
+        <ChrysalisSlider
+            min={0}
+            max={1}
+            step={0.0001}
+            value={played}
+            onChange={handleSeekChange}
+            onChangeCommitted={handleSeekCommit}
+            ThumbComponent={StyledThumbComponent}
         />
-        <Typography>Controls</Typography>
-        <Button onClick={handleStop}>Stop</Button>
-        <Button onClick={handlePlayPause}>{playing ? 'Pause' : 'Play'}</Button>
-        <Typography>Seek</Typography>
-        <Slider
-          min={0} 
-          max={1}
-          step={0.0001}
-          value={played}
-          onChange={handleSeekChange}
-          onChangeCommitted={handleSeekCommit}
-        />
-        <Typography>Played</Typography>
-        <LinearProgress style={{height: 20}} variant='determinate' value={played * 100} />
-    </Box>
+      </Grid>
+      <Grid>
+        <MuuriComponent dragEnabled>
+          {children}
+        </MuuriComponent>
+      </Grid>
+    </Fragment>
   );
 }
-
-export default Player;
