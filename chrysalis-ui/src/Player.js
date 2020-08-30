@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import Duration from './Duration';
 import khalid_better from './assets/khalid_better.mp3';
 import { makeStyles } from '@material-ui/core/styles';
-import {Button, Grid, Box} from '@material-ui/core';
+import {Button, FormControlLabel, Box, Paper, LinearProgress, Typography, Slider, Checkbox} from '@material-ui/core';
 import './index.css';
 
 function Player() {
@@ -22,21 +22,28 @@ function Player() {
   const handlePlayPause = () => { setPlaying(!playing) }
   const handleStop = () => { setPlaying(false) }
   const handleToggleLoop = () => { setLoop(!loop) }
-  const handleVolumeChange = e => { setVolume(parseFloat(e.target.value)) }
+
   const handleToggleMuted = () => { setMuted(!muted) }
   const handleDuration = duration => { setDuration(duration) }
-  const handleSeekMouseDown = e => { setSeeking(true) }
-  const handleSeekChange = e => { setPlayed(parseFloat(e.target.value)) }
 
-  const handleSeekMouseUp = e => {
-    setSeeking(false)
-    inputEl.current.seekTo(parseFloat(e.target.value))
+  const handleVolumeChange = (event, value) => {
+    setVolume(value)
   }
 
-  const handleProgress = e => {
+  const handleSeekChange = (event, value) => {
+    setSeeking(true)
+    setPlayed(value)
+  }
+
+  const handleSeekCommit = (event, value) => {
+    setSeeking(false)
+    inputEl.current.seekTo(value) 
+  }
+
+  const handleProgress = event => {
     if (!seeking) {
-      setPlayed(e.played)
-      setLoaded(e.loaded)
+      setPlayed(event.played)
+      setLoaded(event.loaded)
     }
   }
 
@@ -49,54 +56,24 @@ function Player() {
 
   return (
     <Box>
-      <table>
-        <tbody>
-          <tr>
-            <th>Volume</th>
-            <td>
-              <input type='range' min={0} max={1} step='any' value={volume} onChange={handleVolumeChange} />
-            </td>
-          </tr>
-          <tr>
-            <th>Loaded</th>
-            <td><progress max={1} value={loaded} /></td>
-          </tr>
-          <tr>
-            <th>duration</th>
-            <td><Duration seconds={duration} /></td>
-          </tr>
-          <tr>
-            <th>elapsed</th>
-            <td><Duration seconds={duration * played} /></td>
-          </tr>
-          <tr>
-            <th>remaining</th>
-            <td><Duration seconds={duration * (1 - played)} /></td>
-          </tr>
-          <tr>
-            <th>
-              <label htmlFor='muted'>Muted</label>
-            </th>
-            <td>
-              <input id='muted' type='checkbox' checked={muted} onChange={handleToggleMuted} />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <label htmlFor='loop'>Loop</label>
-            </th>
-            <td>
-              <input id='loop' type='checkbox' checked={loop} onChange={handleToggleLoop} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-      >
+        <Typography>Volume</Typography>
+        <Slider min={0} max={1} step={0.0001} value={volume} onChange={handleVolumeChange} />
+        <Typography>Loaded</Typography>
+        <LinearProgress value={loaded * 100} style={{height: 20}} variant='determinate' />
+        <Typography>duration</Typography>
+        <Duration seconds={duration} />
+        <Typography>elapsed</Typography>
+        <Duration seconds={duration * played} />
+        <Typography>remaining</Typography>
+        <Duration seconds={duration * (1 - played)} />
+        <FormControlLabel 
+          control={<Checkbox checked={muted} onChange={handleToggleMuted}/>} 
+          label='muted'
+          />
+        <FormControlLabel 
+          control={<Checkbox checked={loop} onChange={handleToggleLoop}/>} 
+          label='loop'
+          />
         <ReactPlayer
           ref={inputEl}
           className='react-player'
@@ -118,35 +95,20 @@ function Player() {
           onProgress={handleProgress}
           onDuration={handleDuration}
         />
-
-        <table>
-          <tbody>
-            <tr>
-              <th>Controls</th>
-              <td>
-                <Button onClick={handleStop}>Stop</Button>
-                <Button onClick={handlePlayPause}>{playing ? 'Pause' : 'Play'}</Button>
-              </td>
-            </tr>
-            <tr>
-              <th>Seek</th>
-              <td>
-                <input
-                  type='range' min={0} max={0.999999} step='any'
-                  value={played}
-                  onMouseDown={handleSeekMouseDown}
-                  onChange={handleSeekChange}
-                  onMouseUp={handleSeekMouseUp}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Played</th>
-              <td><progress max={1} value={played} /></td>
-            </tr>
-          </tbody>
-        </table>
-      </Grid>
+        <Typography>Controls</Typography>
+        <Button onClick={handleStop}>Stop</Button>
+        <Button onClick={handlePlayPause}>{playing ? 'Pause' : 'Play'}</Button>
+        <Typography>Seek</Typography>
+        <Slider
+          min={0} 
+          max={1}
+          step={0.0001}
+          value={played}
+          onChange={handleSeekChange}
+          onChangeCommitted={handleSeekCommit}
+        />
+        <Typography>Played</Typography>
+        <LinearProgress style={{height: 20}} variant='determinate' value={played * 100} />
     </Box>
   );
 }

@@ -5006,11 +5006,6 @@ gzip-size@5.1.1:
     duplexer "^0.1.1"
     pify "^4.0.1"
 
-hammerjs@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
-  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
-
 handle-thing@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.0.tgz#0e039695ff50c93fc288557d696f3c1dc6776754"
@@ -8764,13 +8759,6 @@ react-app-polyfill@^1.0.6:
     raf "^3.4.1"
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
-
-react-audio-player@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/react-audio-player/-/react-audio-player-0.13.0.tgz#d546589a86e2beb2a5cd46981313071bd547ba47"
-  integrity sha512-ivXIjQMM59Kp6Bat62VkqI5ymhgUOO8XdCsfyqeLJ5E3Hgx+Cqj1zq+x1ltU+xhSp+zW2xEEnyWHOQGdJibNfA==
-  dependencies:
-    prop-types "^15.7.2"
 
 react-dev-utils@^10.2.1:
   version "10.2.1"
