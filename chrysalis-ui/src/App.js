@@ -15,7 +15,10 @@ function App() {
         style={{paddingTop: 200}}
       >
         <Grid item xs={6}>
-          <Player/>
+        {/*<Player url={vox}/>*/}
+        {/*<Player url={vox2}/>*/}
+        {/*<Player url={instr}/>*/}
+        <Player />
         </Grid>
       </Grid>
     </Fragment>

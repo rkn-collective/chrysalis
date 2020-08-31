@@ -9,7 +9,7 @@ export function generateBlocks() {
         const height = 100;
         const title = "hey";
 
-        items.push({ index, color, width, height, title });
+        items.push({ index, color, width, height, title});
     }
 
     return items;

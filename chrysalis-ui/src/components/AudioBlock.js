@@ -1,5 +1,5 @@
-import {useDrag} from "muuri-react";
 import React from "react";
+import {useDrag} from "muuri-react";
 
 export const AudioBlock = ({ color, width, height, title }) => {
 
