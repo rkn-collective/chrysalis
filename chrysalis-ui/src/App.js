@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Player from './components/Player';
+import GlobalControls from './components/GlobalControls';
 import { Grid } from '@material-ui/core';
 import './App.css';
 
@@ -15,10 +16,8 @@ function App() {
         style={{paddingTop: 200}}
       >
         <Grid item xs={6}>
-        {/*<Player url={vox}/>*/}
-        {/*<Player url={vox2}/>*/}
-        {/*<Player url={instr}/>*/}
-        <Player />
+        <GlobalControls />
+
         </Grid>
       </Grid>
     </Fragment>
