@@ -42,9 +42,9 @@ export default function Player(props) {
 
   const handleSeekCommit = (event, value) => {
     setSeeking(false)
-    // playerRef.current.seekTo(value)
-    // playerRef2.current.seekTo(value)
+    playerRef.current.seekTo(value)
   }
+
 
   const handleProgress = event => {
     if (!seeking) {
@@ -59,8 +59,6 @@ export default function Player(props) {
   }
 
   const playerRef = useRef(null);
-  const playerRef2 = useRef(null);
-  const muuriRef = useRef(null);
 
   const children = audioBlockArray.map(props => {
     return (
@@ -74,39 +72,30 @@ export default function Player(props) {
 
   return (
     <Fragment>
-    <GlobalSlider
-        min={0}
-        max={1}
-        step={0.0001}
-        value={played}
-        onChange={handleSeekChange}
-        onChangeCommitted={handleSeekCommit}
-        ThumbComponent={StyledThumbComponent}
-    />
       <ReactPlayer
           ref={playerRef}
           className='react-player'
-          width='100%'
-          height='100%'
-          url={props.audioSegment}
-          playing={playing}
-          loop={loop}
-          volume={volume}
-          muted={muted}
+          width='100%' height='100%'
+          url={props.audioFile}
+          playing={props.globalPlaying}
+          loop={props.globalLoop}
+          volume={props.globalVolume}
+          // muted={props.globalMuted}
+          muted={false}
           onReady={() => console.log('onReady')}
           onStart={() => console.log('onStart')}
           onPlay={handlePlay}
           onPause={handlePause}
           onBuffer={() => console.log('onBuffer')}
           onSeek={e => console.log('onSeek', e)}
-          onEnded={handleEnded}
+          onEnded={props.handleGlobalEnded}
           onError={e => console.log('onError', e)}
           onProgress={handleProgress}
           onDuration={handleDuration}
       />
         <Paper style={{padding: 20}}>
-            <Typography>Part 1</Typography>
-            <LinearProgress value={played * 100} style={{height: 20}} variant='determinate' />
+            <Typography>{props.audioName}</Typography>
+            <LinearProgress value={props.globalPlayed * 100}style={{height: 20}} variant='determinate' />
         </Paper>
     </Fragment>
   );

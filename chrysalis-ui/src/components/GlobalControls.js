@@ -5,8 +5,7 @@ import { Card, Paper, Button, FormControlLabel, LinearProgress, Typography, Slid
 import '../index.css';
 import '../style.css';
 
-// import amilli from '../assets/audio/amilli.wav';
-import better from '../assets/khalid_better.mp3';
+import amilli from '../assets/audio/amilli.wav';
 import part1 from '../assets/audio/part1.wav';
 import part2 from '../assets/audio/part2.wav';
 import part3 from '../assets/audio/part3.wav';
@@ -50,7 +49,6 @@ class GlobalControls extends Component {
             this.setState({globalPlayed: progress.played})
             this.setState({globalLoaded: progress.loaded})
         }
-        console.log(this.state)
     }
 
     handleGlobalSeekInit = () => {
@@ -82,7 +80,6 @@ class GlobalControls extends Component {
                 <Paper style={{padding: 20}}>
                     <Typography>Volume</Typography>
                     <Slider min={0} max={1} step={0.0001} value={globalVolume} onChange={this.handleGlobalVolumeChange} />
-                    <button onClick={() => console.log(this.state)}> hi </button>
                     <Typography>Loaded</Typography>
                     <LinearProgress value={globalLoaded * 100} style={{height: 20}} variant='determinate' />
                     <Typography>duration | {<Duration seconds={globalDuration} />}</Typography>
@@ -113,11 +110,12 @@ class GlobalControls extends Component {
                     ref={playersRef => {this.ref = playersRef}}
                     className='react-player'
                     width='100%' height='100%'
-                    url={better}
+                    url={amilli}
                     playing={globalPlaying}
                     loop={globalLoop}
                     volume={globalVolume}
-                    muted={globalMuted}
+                    // muted={globalMuted}
+                    muted={true}
                     onReady={() => console.log('onReady')}
                     onStart={() => console.log('onStart')}
                     onPlay={this.handleGlobalPlay}
@@ -129,7 +127,9 @@ class GlobalControls extends Component {
                     onProgress={this.handleGlobalProgress}
                     onDuration={this.handleGlobalDuration}
                 />
-                {/*<Modules.PlayerModule audioFile={amilli} />*/}
+                <Player {...this.state} audioName='vocals' audioFile={amilli} handleProgress={this.handleGlobalProgress} />
+                <Player {...this.state} audioName='part 1' audioFile={part1} handleProgress={this.handleGlobalProgress} />
+                {/*<Modules.PlayerModule audioFile={amilli} {...this.state} />*/}
             </Fragment>
         )
     }
